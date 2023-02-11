@@ -9,21 +9,21 @@ const PokeCard = () => {
       if(pokeInfo == '') return 
       const req = await fetch(pokeInfo)
       const res = await req.json()
-      setPokeDetails(res)
+      setPokeDetails([res])
     } 
     getPokeInfo()
   }, [pokeInfo])
   return (
     <div className='border border-slate-900 w-2/4 m-auto bg-slate-100 rounded p-2 flex flex-col'>
-      {pokeDetails ? (
+      {pokeDetails.length == 0 ? <h2>Choose a poke info to get info</h2> : (
         <>
-        <h2 className='text-3xl text-center'>{pokeDetails.name.toUpperCase()}</h2>
-        <img className='w-full h-auto' src={pokeDetails.sprites.front_default} alt={pokeDetails.name} />
+        <h2 className='text-3xl text-center'>{pokeDetails[0].name.toUpperCase()}</h2>
+        <img className='w-full h-auto' src={pokeDetails[0].sprites.front_default} alt={pokeDetails.name} />
         <div className='flex gap-2'>
-        {pokeDetails.types.map(type => (<h3 key={type.type.name}>{type.type.name}</h3>))}
+        {pokeDetails[0].types.map(type => (<h3 key={type.type.name}>{type.type.name}</h3>))}
         </div>
         </>
-      ) : <h2>Choose a poke info</h2> }
+      )  }
       </div>
   )
 }

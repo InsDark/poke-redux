@@ -8,8 +8,8 @@ function App() {
   return (
     <main className={'grid grid-cols-2  h-screen items-center'}>
       <section>
-        <PokeNavigator/>
-      <PokeList />
+        <PokeNavigator />
+        <PokeList />
       </section>
       <PokeCard />
     </main>
