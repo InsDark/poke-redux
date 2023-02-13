@@ -6,15 +6,11 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './Routes/Login'
+import Profile from './Routes/Profile'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path={'/'} element={<App/>}/>
-          <Route path={'/login'} element={<Login/>}/>
-        </Routes>
-      </BrowserRouter>
+      <App/>
     </Provider>
   </React.StrictMode>,
 )

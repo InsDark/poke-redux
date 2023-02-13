@@ -1,15 +1,19 @@
 import { initializeApp } from "firebase/app";
 import {getAuth} from 'firebase/auth'
 import {getFirestore} from 'firebase/firestore'
+import {getStorage} from 'firebase/storage'
+
 const firebaseConfig = {
-  apiKey: "AIzaSyArAUGyzJCa2BreC9cX2NcUtuQ0JaOzgLA",
-  authDomain: "fireauth-a91dc.firebaseapp.com",
-  projectId: "fireauth-a91dc",
-  storageBucket: "fireauth-a91dc.appspot.com",
-  messagingSenderId: "986503040539",
-  appId: "1:986503040539:web:d84718121b2055c433b2be"
+  apiKey: "AIzaSyDX7cKhaTxJd-IrpYJvbQfIqxn7BDy1kvE",
+  authDomain: "react-firebase-todo-bc13c.firebaseapp.com",
+  projectId: "react-firebase-todo-bc13c",
+  storageBucket: "react-firebase-todo-bc13c.appspot.com",
+  messagingSenderId: "254051495367",
+  appId: "1:254051495367:web:d6377cc49d4c3a070afde2"
 };
+
 
 const app = initializeApp(firebaseConfig);
 export const auth  = getAuth(app)
+export const storage = getStorage(app)
 export const db = getFirestore(app)

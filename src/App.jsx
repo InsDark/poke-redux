@@ -1,30 +1,23 @@
-import { useEffect, useState } from 'react'
-import PokeCard from './components/PokeCard'
-import PokeList from './components/PokeList'
-import PokeNavigator from './components/PokeNavigator'
-import { auth } from './app/firebase'
-import { useNavigate } from 'react-router-dom'
-import Header from './components/Header'
+import {  BrowserRouter, Routes, Route, Navigate  } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import Login from './Routes/Login'
+import Home from './Routes/Home'
+import Profile from './Routes/Profile'
+const PrivateRoute = ({element}) => {
+  const {credentials} = useSelector(state => state.user)
+  if(!credentials) return <Navigate to={'/login'}/>
+  return element
+}
 function App() {
-  const currentUser = auth.currentUser
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (!currentUser) {
-      navigate('/login')
-    }
-  })
+  
   return (
-    <>
-      <Header />
-      <main className='grid grid-cols-2  h-screen items-center'>
-        <section>
-
-          <PokeNavigator />
-          <PokeList />
-        </section>
-        <PokeCard />
-      </main>
-    </>
+    <BrowserRouter>
+        <Routes>
+          <Route path={'/'} element={<PrivateRoute element={<Home/>}/>}/>
+          <Route path={'/login'} element={<Login/>}/>
+          <Route path={'/profile'} element={<PrivateRoute element={<Profile/>}/>}/>
+        </Routes>
+      </BrowserRouter>
   )
 }
 
