@@ -4,7 +4,7 @@ import { auth, db } from './../app/firebase'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, } from 'react-redux'
 import { setAuth, setName, setPicture } from './../app/features/userSlice'
-import {doc, setDoc } from 'firebase/firestore'
+import {doc, getDoc, setDoc } from 'firebase/firestore'
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -22,15 +22,16 @@ const Login = () => {
       });
       const res = await signInWithPopup(auth, provider)
       if (!res) return null
-
       localStorage.setItem('auth', JSON.stringify(res))
-      setUserCredentials(res, res.user.photoURL, res.user.displayName)
       await setDoc(doc (db, 'users', res.user.uid ) , {
         uid: res.user.uid, 
         email: res.user.email,
         picture: res.user.photoURL,
         name: res.user.displayName
       })
+      const userData = await getDoc(doc(db, 'users', res.user.uid)) 
+      const {picture} = userData.data()
+      setUserCredentials(res, picture, res.user.displayName)
       
       navigate('/')
 

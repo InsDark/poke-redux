@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { auth , db, storage} from '../app/firebase'
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage'
 import Header from '../components/Header'
 import { doc, setDoc } from 'firebase/firestore'
+import {setPicture} from '../app/features/userSlice'
 const Profile = () => {
     const { name, picture, credentials } = useSelector(state => state.user)
+    const dispath = useDispatch()
     const handleImageUpload = async(e) => {
         const newProfile = e.target.files[0]
         const storageRef = ref(storage, credentials.user.email)
@@ -17,6 +19,9 @@ const Profile = () => {
             picture: url,
             uid: credentials.user.uid
         } )
+        dispath(setPicture(url))
+        
+        
     }
     return (
         <>
